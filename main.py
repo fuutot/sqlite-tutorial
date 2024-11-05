@@ -13,7 +13,7 @@ cur.execute("CREATE TABLE IF NOT EXISTS movie(title, year, score)")
 res = cur.execute("SELECT name FROM sqlite_master") # sqlite_master: sqliteによって自動的に作成、管理される.データベース内の構造が管理されている
 
 # 結果の行を取得
-print(res.fetchone())
+print(res.fetchone()) # tuple型
 
 # 結果がない場合、Noneを返す
 res = cur.execute("SELECT name FROM sqlite_master WHERE name='spam'")
@@ -30,7 +30,17 @@ con.commit()
 
 res = cur.execute("SELECT * FROM movie")
 
-print(res.fetchall())
+print(res.fetchall()) # list[tuple]型
+
+data = [
+    ("Monty Python Live at the Hollywood Bowl", 1982, 7.9),
+    ("Monty Python's The Meaning of Life", 1983, 7.5),
+    ("Monty Python's Life of Brian", 1979, 8.0),
+]
+# プレイスホルダーを利用したバインディング SQLインジェクションに対応するため、以下のように行う
+cur.executemany("INSERT INTO movie VALUES(?, ?, ?)", data)
+con.commit()
+
 
 # 接続を閉じる
 con.close()
