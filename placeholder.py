@@ -30,6 +30,10 @@ username_input = "' OR '1'='1"
 data = {"username": username_input}
 print("placeholder version")
 # 実行、結果を出力
-print(new_cur.execute("SELECT * FROM user WHERE username = :username;", data).fetchall())
+print("名前付き", new_cur.execute("SELECT * FROM user WHERE username = :username;", data).fetchall())
+
+# クエリ文字列中でプレイスホルダーを利用(疑問符)
+data = (username_input,)
+print("疑問符", new_cur.execute("SELECT * FROM user WHERE username = ?;", data).fetchall())
 
 con.close()
