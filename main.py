@@ -6,6 +6,9 @@ con = sqlite3.connect("tutorial.db")
 # データベースカーソルを作成
 cur = con.cursor()
 
+# movieが存在する場合、削除
+cur.execute("DROP TABLE IF EXISTS movie")
+
 # CREATE TABLE文を実行
 cur.execute("CREATE TABLE IF NOT EXISTS movie(title, year, score)")
 
@@ -41,6 +44,9 @@ data = [
 cur.executemany("INSERT INTO movie VALUES(?, ?, ?)", data)
 con.commit()
 
+# for文で反復処理
+for row in cur.execute("SELECT year, title FROM movie ORDER BY year"):
+    print(row) # tuple型
 
 # 接続を閉じる
 con.close()
