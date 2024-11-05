@@ -19,5 +19,15 @@ print(res.fetchone())
 res = cur.execute("SELECT name FROM sqlite_master WHERE name='spam'")
 print(res.fetchone() is None)
 
+# 一度実行済み
+# cur.execute("""
+#     INSERT INTO movie VALUES
+#         ('Monty Python and the Holy Grail', 1975, 8.2),
+#         ('And Now for Something Completely Different', 1971, 7.5)
+# """)
+res = cur.execute("SELECT * FROM movie")
+
+print(res.fetchall())
+
 # 接続を閉じる
 con.close()
