@@ -15,5 +15,9 @@ res = cur.execute("SELECT name FROM sqlite_master") # sqlite_master: sqliteに�
 # 結果の行を取得
 print(res.fetchone())
 
+# 結果がない場合、Noneを返す
+res = cur.execute("SELECT name FROM sqlite_master WHERE name='spam'")
+print(res.fetchone() is None)
+
 # 接続を閉じる
 con.close()
