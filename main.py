@@ -50,3 +50,16 @@ for row in cur.execute("SELECT year, title FROM movie ORDER BY year"):
 
 # 接続を閉じる
 con.close()
+
+
+# 新しく接続を確立
+new_con = sqlite3.connect("tutorial.db")
+# データベースカーソルを作成
+new_cur = new_con.cursor()
+# スコアでソート
+res = new_cur.execute("SELECT title, year FROM movie ORDER BY score DESC")
+# 一番大きいものを取得
+title, year = res.fetchone()
+
+print(f'The highest scoring Monty Python movie is {title!r}, released in {year}')
+new_con.close()
