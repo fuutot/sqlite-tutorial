@@ -16,8 +16,20 @@ con.commit()
 username_input = "' OR '1'='1"
 sql = f"SELECT * FROM user WHERE username = '{username_input}';"
 print(sql)
-
+print("format文 version")
 # 実行、結果を出力
 print(cur.execute(sql).fetchall())
+
+con.close()
+
+# クエリ文字列中でプレイスホルダーを利用(名前付き)
+new_con = sqlite3.connect("tutorial.db")
+new_cur = new_con.cursor()
+
+username_input = "' OR '1'='1"
+data = {"username": username_input}
+print("placeholder version")
+# 実行、結果を出力
+print(new_cur.execute("SELECT * FROM user WHERE username = :username;", data).fetchall())
 
 con.close()
